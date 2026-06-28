@@ -14,6 +14,9 @@ struct day21: View {
     
     @State private var showingScore = false
     @State private var scoreTitle = ""
+    @State private var totalScore = 0
+    @State private var currentRound = 1
+    @State private var showEnd = false
     
     @State var correctAnswer = Int.random(in: 0...2)
     var body: some View {
@@ -27,6 +30,9 @@ struct day21: View {
                 Spacer()
                 Text("Guess The Flag")
                     .font(.largeTitle.weight(.bold))
+                    .foregroundStyle(.white)
+                Text("\(currentRound)/10")
+                    .font(.title.weight(.heavy))
                     .foregroundStyle(.white)
                 VStack{
                     VStack{
@@ -60,7 +66,7 @@ struct day21: View {
                 Spacer()
                 Spacer()
                 
-                Text("Your Score is:")
+                Text("Your Score is: \(totalScore)")
                     .foregroundStyle(.white)
                     .font(.largeTitle.weight(.heavy))
             
@@ -73,7 +79,16 @@ struct day21: View {
         .alert(scoreTitle, isPresented: $showingScore) {
             Button("Continue", action: askQuestion)
         } message: {
-            Text("Your score is ???")
+            Text("Correct answer is flag number \(correctAnswer + 1)")
+        }
+        .alert("Congrats", isPresented: $showEnd){
+            Button("Restart", action: {
+                self.totalScore = 0
+                self.currentRound = 1
+                self.askQuestion()
+            })
+        } message:{
+            Text("Your total score is \(totalScore)")
         }
         
         
@@ -84,13 +99,23 @@ struct day21: View {
     func flagTapped(_ number: Int){//funch harus diluar body
         if number == correctAnswer{
             scoreTitle = "Correct"
+            totalScore += 10
         }
         else{
             scoreTitle = "Wrong"
         }
         
         showingScore = true
+        currentRound+=1
+        if currentRound > 10 {
+                showEnd = true
+            } else {
+                showingScore = true
+            }
+        
+        
     }
+    
     
     func askQuestion(){
         countries.shuffle()
