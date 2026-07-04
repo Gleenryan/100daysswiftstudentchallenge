@@ -51,9 +51,10 @@ struct day21: View {
                         Button{
                             flagTapped(number)
                         }label: {
-                            Image(self.countries[number])
-                                .clipShape(.circle)
-                                .shadow(radius: 5)
+//                            Image(self.countries[number])
+//                                .clipShape(.circle)
+//                                .shadow(radius: 5)
+                            FlagImage(number)
                         }
                         
                     }
@@ -115,7 +116,11 @@ struct day21: View {
         
         
     }
-    
+//    @ViewBuilder
+    func FlagImage(_ number: Int) -> some View {
+        Image(countries[number])
+            .modifier(ImageModifier())
+    }
     
     func askQuestion(){
         countries.shuffle()
@@ -123,6 +128,15 @@ struct day21: View {
     }
     
 }
+
+struct ImageModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .clipShape(.circle)
+            .shadow(radius: 5)
+    }
+}
+
 
 #Preview {
     day21()

@@ -45,6 +45,7 @@ struct day18:  View {
                 }
                 Section("Give some tips") {
                     Text("\(Int(tipPercentage))%")
+                        .changeRed(with: Int(tipPercentage))
 //                    Picker("Tip", selection: Binding(
 //                        get: { Int(tipPercentage) },
 //                        set: { tipPercentage = Double($0) }
@@ -82,6 +83,30 @@ struct day18:  View {
     }
 }
 
+struct changeRed: ViewModifier{
+    let value: Int
+    
+    func body(content: Content) -> some View {
+        content
+            .foregroundColor(value == 0 ? .red : .blue)
+            
+    }
+}
+
+extension View{
+    func changeRed(with value: Int) -> some View{
+        modifier(_00swiftstudentchallenge.changeRed(value: value))
+    }
+}
+
+
+
+
+//extension View {
+//    func watermarked(with text: String) -> some View {
+//        modifier(Watermark(text: text))
+//    }
+//}
 
 #Preview {
     day18()
