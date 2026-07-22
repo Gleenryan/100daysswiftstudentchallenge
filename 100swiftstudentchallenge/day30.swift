@@ -31,9 +31,25 @@ struct day30: View {
                         }
                     }
                 }
+                Section{
+                    Text("Score: \(usedWords.reduce(0) { $0 + $1.count })")
+                }
             }
             .onSubmit {
-                addNewWord()
+                if newWord.count > 3 {
+                    addNewWord()
+                }else{
+                    newWord = ""
+                    errorTitle = "Error Adding Word"
+                    errorMessage = "Please enter a word longer than 3 characters"
+                    showingError.toggle()
+                }
+                
+            }
+            .toolbar{
+                Button("New Word"){
+                    startGame()
+                }
             }
             .navigationTitle(rootWord)
             .onAppear(perform: startGame)
