@@ -46,8 +46,9 @@ struct day37: View {
     
     var body: some View {
         NavigationStack {
+            Text("Personal")
             List{
-                ForEach(expenses.items, id: \.id){ item in
+                ForEach(expenses.items.filter{$0.type.contains("Personal")}, id: \.id){ item in
                     HStack{
                         VStack(alignment: .leading){
                             Text(item.name)
@@ -56,11 +57,33 @@ struct day37: View {
                         }
                         Spacer()
                         Text("\(item.amount, specifier: "%.2f")")
+                            .foregroundStyle(item.amount < 10 ? .green : item.amount < 100 ? .yellow : .red)
+                            
                     }
                 }
                 .onDelete(perform: removeItems)
             }
-            .navigationTitle("title")
+           
+            Text("Bsiness")
+            List{
+                ForEach(expenses.items.filter{$0.type.contains("Business")}, id: \.id){ item in
+                    HStack{
+                        VStack(alignment: .leading){
+                            Text(item.name)
+                                .font(.headline)
+                            Text(item.type)
+                        }
+                        Spacer()
+                        Text("\(item.amount, specifier: "%.2f")")
+                            .foregroundStyle(item.amount < 10 ? .green : item.amount < 100 ? .yellow : .red)
+                            
+                    }
+                }
+                .onDelete(perform: removeItems)
+            }
+            
+            
+            .navigationTitle("tracker")
             .toolbar{
                 Button("Add"){
                     showingAddExpense.toggle()
