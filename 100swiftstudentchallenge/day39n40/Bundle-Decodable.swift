@@ -8,7 +8,8 @@
 import Foundation
 
 extension Bundle{
-    func decode(_ file:String) -> [String: Astronaut]{
+    //kita bisa biking generic(works fo all data types) using <T>
+    func decode<T: Decodable>(_ file:String) -> T {
         guard let url = self.url(forResource: file, withExtension: nil) else{
             fatalError("cant locate \(file)")
         }
@@ -18,8 +19,11 @@ extension Bundle{
         }
         
         let decoder = JSONDecoder()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "y-MM-dd"
+        decoder.dateDecodingStrategy = .formatted(formatter)
         do{
-            return try decoder.decode([String: Astronaut].self, from: data)
+            return try decoder.decode(T.self, from: data)
             //kalo udah kaya gini, harus catch semua jenis error yang ada
         } catch DecodingError.keyNotFound(let key, let context) {
             fatalError("Failed to decode \(file) from bundle due to missing key '\(key.stringValue)' – \(context.debugDescription)")
@@ -34,7 +38,6 @@ extension Bundle{
         }
     }
 }
-
 
 
 
