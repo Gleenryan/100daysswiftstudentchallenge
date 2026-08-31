@@ -34,7 +34,8 @@ struct day37b: View {
                 
                 
             }
-            .navigationTitle("Add New Expenses")
+            .navigationTitle($name)
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar{
                 Button("Add"){
                     let item = ExpenseItem(name: name, type: type, amount: amount)

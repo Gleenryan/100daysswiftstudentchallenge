@@ -6,6 +6,7 @@
 //
 import SwiftUI
 
+
 //intinya Identifiable itu nandain kalo STRUCT INI BISA UNIQUE, BEDA", HARUS ADA ID
 struct ExpenseItem: Identifiable, Codable{
     var id = UUID()
@@ -39,6 +40,7 @@ class Expenses{
 
 
 struct day37: View {
+    @State var path = NavigationPath()
     @State private var expenses = Expenses()
     @State private var showingAddExpense = false
     
@@ -85,13 +87,15 @@ struct day37: View {
             
             .navigationTitle("tracker")
             .toolbar{
-                Button("Add"){
-                    showingAddExpense.toggle()
+                NavigationLink("New Expense"){
+                    day37b(expenses: expenses)
                 }
+            
             }
-            .sheet(isPresented: $showingAddExpense){
-                day37b(expenses: expenses)
-            }
+            .navigationBarBackButtonHidden()
+//            .sheet(isPresented: $showingAddExpense){
+//                day37b(expenses: expenses)
+//            }
             
         }
     }

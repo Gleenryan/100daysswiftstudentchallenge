@@ -9,6 +9,7 @@ import SwiftUI
 
 
 struct day39c: View {
+    @State private var path = NavigationPath()
     @State private var tolist = false
     //karena pake generic jadi kita harus jelasin dia tipe datanya apa
     let astronauts: [String: Astronaut] = Bundle.main.decode("astronauts.json")
@@ -26,9 +27,9 @@ struct day39c: View {
                 
                 if tolist {
                     List(missions) { mission in
-                        NavigationLink {
-                            MissionView(mission: mission, astronauts: astronauts)
-                        } label: {
+                    
+                        
+                        NavigationLink(value: mission){
                             HStack {
                                 Image(mission.image)
                                     .resizable()
@@ -42,16 +43,31 @@ struct day39c: View {
                                 }
                             }
                         }
+                            
+                        
+//                        NavigationLink {
+//                            MissionView(mission: mission, astronauts: astronauts)
+//                        } label: {
+//                            HStack {
+//                                Image(mission.image)
+//                                    .resizable()
+//                                    .scaledToFit()
+//                                    .frame(width: 44, height: 44)
+//                                VStack(alignment: .leading) {
+//                                    Text(mission.displayName)
+//                                        .font(.headline)
+//                                    Text(mission.formattedLaunchDate)
+//                                        .font(.caption)
+//                                }
+//                            }
+//                        }
                     }
                 }else{
                     
                     ScrollView {
                         LazyVGrid(columns: columns) {
                             ForEach(missions) { mission in
-                                NavigationLink {
-                                    MissionView(mission: mission, astronauts: astronauts)
-                                } label: {
-                                    
+                                NavigationLink(value: mission){
                                     VStack {
                                         Image(mission.image)
                                             .resizable()
@@ -70,11 +86,36 @@ struct day39c: View {
                                     .frame(maxWidth: .infinity)
                                     .background(.lightBackground)
                                 }
+//                                NavigationLink {
+//                                    MissionView(mission: mission, astronauts: astronauts)
+//                                } label: {
+////                                    
+//                                    VStack {
+//                                        Image(mission.image)
+//                                            .resizable()
+//                                            .scaledToFit()
+//                                            .frame(width: 100, height: 100)
+//                                        
+//                                        VStack {
+//                                            Text(mission.displayName)
+//                                                .font(.headline)
+//                                            Text(mission.formattedLaunchDate)
+//                                                .font(.caption)
+//                                        }
+//                                        .frame(maxWidth: .infinity)
+//                                    }
+//                                    .padding(.vertical)
+//                                    .frame(maxWidth: .infinity)
+//                                    .background(.lightBackground)
+                                }
                             }
-                        }
+                            
                     }
                     
+                    
                 }
+                    
+                
                     
                 
                     
@@ -86,6 +127,9 @@ struct day39c: View {
             .navigationTitle("Moonshot")
                 .toolbar{
                     Toggle("To list", isOn: $tolist)
+                }
+                .navigationDestination(for: Mission.self) { mission in
+                    MissionView(mission: mission, astronauts: astronauts)
                 }
 
             
