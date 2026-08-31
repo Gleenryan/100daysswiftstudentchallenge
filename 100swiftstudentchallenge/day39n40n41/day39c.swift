@@ -9,6 +9,7 @@ import SwiftUI
 
 
 struct day39c: View {
+    @State private var tolist = false
     //karena pake generic jadi kita harus jelasin dia tipe datanya apa
     let astronauts: [String: Astronaut] = Bundle.main.decode("astronauts.json")
     let missions: [Mission] = Bundle.main.decode("missions.json")
@@ -21,36 +22,76 @@ struct day39c: View {
         
         
         NavigationStack {
-            ScrollView {
-                LazyVGrid(columns: columns) {
-                    ForEach(missions) { mission in
+            Group{
+                
+                if tolist {
+                    List(missions) { mission in
                         NavigationLink {
                             MissionView(mission: mission, astronauts: astronauts)
                         } label: {
-                            VStack {
+                            HStack {
                                 Image(mission.image)
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(width: 100, height: 100)
-
-                                VStack {
+                                    .frame(width: 44, height: 44)
+                                VStack(alignment: .leading) {
                                     Text(mission.displayName)
                                         .font(.headline)
                                     Text(mission.formattedLaunchDate)
                                         .font(.caption)
                                 }
-                                .frame(maxWidth: .infinity)
                             }
-                            .padding(.vertical)
-                            .frame(maxWidth: .infinity)
-                            .background(.lightBackground)
                         }
                     }
+                }else{
+                    
+                    ScrollView {
+                        LazyVGrid(columns: columns) {
+                            ForEach(missions) { mission in
+                                NavigationLink {
+                                    MissionView(mission: mission, astronauts: astronauts)
+                                } label: {
+                                    
+                                    VStack {
+                                        Image(mission.image)
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 100, height: 100)
+                                        
+                                        VStack {
+                                            Text(mission.displayName)
+                                                .font(.headline)
+                                            Text(mission.formattedLaunchDate)
+                                                .font(.caption)
+                                        }
+                                        .frame(maxWidth: .infinity)
+                                    }
+                                    .padding(.vertical)
+                                    .frame(maxWidth: .infinity)
+                                    .background(.lightBackground)
+                                }
+                            }
+                        }
+                    }
+                    
                 }
+                    
+                
+                    
+                
+                
+                
+                
             }
             .navigationTitle("Moonshot")
+                .toolbar{
+                    Toggle("To list", isOn: $tolist)
+                }
+
+            
         }
     }
+    
 }
 
 #Preview {
