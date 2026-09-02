@@ -10,7 +10,10 @@ import SwiftUI
 struct AddressView: View {
     @Bindable var order: Order
     
-    
+    var emailError: String? {
+        if order.zip.isEmpty { return nil }
+        return order.zip.contains("62") ? nil : "need to use 62"
+        }
     
 
     var body: some View {
@@ -20,6 +23,7 @@ struct AddressView: View {
                 TextField("Street Address", text: $order.streetAddress)
                 TextField("City", text: $order.city)
                 TextField("Zip", text: $order.zip)
+                    .keyboardType(.numberPad)
             }
 
             Section {
