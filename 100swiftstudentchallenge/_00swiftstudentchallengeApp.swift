@@ -6,12 +6,17 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct _00swiftstudentchallengeApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+//            ContentView()
+            BookwormApp()
+                .preferredColorScheme(.dark)
         }
+        .modelContainer(for: Student2.self)
+        
     }
 }
