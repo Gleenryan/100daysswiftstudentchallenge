@@ -13,10 +13,11 @@ struct _00swiftstudentchallengeApp: App {
     var body: some Scene {
         WindowGroup {
 //            ContentView()
-            BookwormApp()
+            BookwormView()
                 .preferredColorScheme(.dark)
         }
-        .modelContainer(for: Student2.self)
+        .modelContainer(for: Book.self)
+
         
     }
 }
