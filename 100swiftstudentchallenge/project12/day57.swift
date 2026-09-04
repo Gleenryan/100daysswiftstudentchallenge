@@ -28,6 +28,7 @@ class User3 {
 struct day57: View {
     @Environment(\.modelContext) var modelContext
 //    @Query(sort: \User3.name) var users: [User3]
+    @State private var showingUpcomingOnly = false
     @Query(filter: #Predicate<User3> { user in
         user.name.contains("R")
     }, sort: \User3.name) var users: [User3]
