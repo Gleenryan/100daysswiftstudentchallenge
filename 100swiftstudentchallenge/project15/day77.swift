@@ -7,33 +7,41 @@
 
 import SwiftUI
 
-struct NonNegative<Value: BinaryInteger>{
-    var value: Value
+@propertyWrapper
+struct NonNegative<Value: BinaryInteger> {
+    private var value: Value
     
-    init(wrappedValue: Value){
-        if wrappedValue < 0{
-            value = 0
-        }else{
-            value = wrappedValue
-        }
-        
-        var wrappedValue: Value{
-            get{value}
-            set{
-                if newValue < 0{
-                    value = 0
-                }else{
-                    value = newValue
-                }
-            }
-        }
+    init(wrappedValue: Value) {
+        self.value = wrappedValue < 0 ? 0 : wrappedValue
+    }
+    
+    var wrappedValue: Value {
+        get { value }
+        set { value = newValue < 0 ? 0 : newValue }
     }
 }
 
+struct BankAccount {
+    @NonNegative var balance: Int = 100
+}
+
+
+
 
 struct day77:View {
+    @State private var account = BankAccount()
+    
     var body: some View {
-        Text("dsfadasf")
+//        print(account.balance) // 100
+
+        Button("-50"){
+            account.balance -= 50
+        }
+        Button("+50"){
+            account.balance += 50
+        }
+        Text(String(account.balance))
+//        print(account.balance) // 0
     }
 }
 
