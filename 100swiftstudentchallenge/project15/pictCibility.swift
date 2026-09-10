@@ -21,6 +21,10 @@ struct day74: View {
         "apollo8",
         "apollo9"
     ]
+    let flagLabel = [
+        "estonia": "flag with blue, yellow",
+        "indonesia": "red then white"
+    ]
     
     
     @State private var selectedPicture: Int = Int.random(in: 0...2)
@@ -52,6 +56,12 @@ struct day74: View {
                 print("Not handled.")
             }
         }
+        
+        VStack{
+            Text("JFK")
+        }
+        .accessibilityInputLabels(["JFK", "Jonathan"])
+        
         
         //accesibility is like a whole new different world and things that can be handled and taken care off.
     }
