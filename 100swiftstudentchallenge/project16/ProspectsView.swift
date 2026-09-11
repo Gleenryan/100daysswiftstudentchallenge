@@ -8,6 +8,7 @@ import CodeScanner
 import SwiftUI
 import SwiftData
 internal import AVFoundation
+import UserNotifications
 
 struct ProspectsView: View {
     
@@ -54,6 +55,10 @@ struct ProspectsView: View {
                                    prospect.isContacted.toggle()
                                }
                                .tint(.green)
+                        Button("Remind me", systemImage: "bell"){
+                            addNotification(for: prospect)
+                        }
+                        .tint(.orange)
                     }
                     Button("Delete", systemImage: "trash", role: .destructive) {
                         modelContext.delete(prospect)
@@ -122,6 +127,47 @@ struct ProspectsView: View {
         for prospect in selectedProspects {
             modelContext.delete(prospect)
         }
+    }
+    
+    func addNotification(for prospect: Prospect){
+        //ambil center buat notifnya
+        let center = UNUserNotificationCenter.current()
+        
+        //minta req kirim notif
+        let addRequest = {
+            //buat konten / container lah buat notifnya
+            let content = UNMutableNotificationContent()
+            content.title = "Contact \(prospect.name)"
+            content.subtitle = prospect.emailAddress
+            content.sound = UNNotificationSound.default
+            
+//            var dateComponents = DateComponents()
+//            dateComponents.hour = 9
+            
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+            
+            let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+            center.add(request)
+        }
+        
+        center.getNotificationSettings{ settings in
+            if settings.authorizationStatus == .authorized{
+                addRequest()
+            }else{
+                center.requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+                    if success {
+                        addRequest()
+                    } else if let error {
+                        print(error.localizedDescription)
+                    }
+                }
+            }
+            
+        }
+        
+        
+        
+        
     }
     
 }
