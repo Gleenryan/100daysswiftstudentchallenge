@@ -24,6 +24,11 @@ struct Content4View: View {
                     Label("Uninterupted", systemImage: "swift")
                 }
             
+            MeView()
+                .tabItem{
+                    Label("Me", systemImage: "swift")
+                }
+            
         }
 
     }

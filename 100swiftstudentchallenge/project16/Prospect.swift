@@ -14,9 +14,9 @@ class Prospect{
     var isContacted: Bool
     
     
-    init(name: String, emailAdress: String, isContacted: Bool) {
+    init(name: String, emailAddress: String, isContacted: Bool) {
         self.name = name
-        self.emailAddress = emailAdress
+        self.emailAddress = emailAddress
         self.isContacted = isContacted
     }
 }
