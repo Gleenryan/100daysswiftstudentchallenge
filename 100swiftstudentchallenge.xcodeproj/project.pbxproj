@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		8C4BCE66305360F7004B36F1 /* SamplePackage in Frameworks */ = {isa = PBXBuildFile; productRef = 8C4BCE65305360F7004B36F1 /* SamplePackage */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		8CC5EDB02FE686EB00123173 /* 100swiftstudentchallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 100swiftstudentchallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C4BCE66305360F7004B36F1 /* SamplePackage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +70,7 @@
 			);
 			name = 100swiftstudentchallenge;
 			packageProductDependencies = (
+				8C4BCE65305360F7004B36F1 /* SamplePackage */,
 			);
 			productName = 100swiftstudentchallenge;
 			productReference = 8CC5EDB02FE686EB00123173 /* 100swiftstudentchallenge.app */;
@@ -94,6 +100,9 @@
 			);
 			mainGroup = 8CC5EDA72FE686EB00123173;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				8C4BCE64305360F7004B36F1 /* XCRemoteSwiftPackageReference "SamplePackage" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 8CC5EDB12FE686EB00123173 /* Products */;
 			projectDirPath = "";
@@ -334,6 +343,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8C4BCE64305360F7004B36F1 /* XCRemoteSwiftPackageReference "SamplePackage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/twostraws/SamplePackage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8C4BCE65305360F7004B36F1 /* SamplePackage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8C4BCE64305360F7004B36F1 /* XCRemoteSwiftPackageReference "SamplePackage" */;
+			productName = SamplePackage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8CC5EDA82FE686EB00123173 /* Project object */;
 }
