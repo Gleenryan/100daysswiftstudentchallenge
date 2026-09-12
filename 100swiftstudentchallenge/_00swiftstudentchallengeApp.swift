@@ -13,7 +13,7 @@ struct _00swiftstudentchallengeApp: App {
     var body: some Scene {
         WindowGroup {
 //            ContentView()
-            Content4View()
+            day86()
                 .preferredColorScheme(.dark)
         }
         .modelContainer(for: Prospect.self)
