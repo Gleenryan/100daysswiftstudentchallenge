@@ -39,14 +39,15 @@ struct ContentView6: View {
                 
                 
                 ZStack {
-                    ForEach(0..<cards.count, id: \.self) { index in
-                        CardView(card: cards[index]){
-                            withAnimation{
-                                removeCard(at: index)
-                            }
-                        }
-                            .stacked(at: index, in: cards.count)
-                    }
+//                    ForEach(0..<cards.count, id: \.self) { index in
+//                        CardView(card: cards[index]){
+//                            withAnimation{
+//                                removeCard(at: index)
+//                            }
+//                        }
+//                            .stacked(at: index, in: cards.count)
+//                            .allowsHitTesting(index == card.count - 1)
+//                    }
                 }
                 .allowsHitTesting(timeRemaining > 0)
                 
