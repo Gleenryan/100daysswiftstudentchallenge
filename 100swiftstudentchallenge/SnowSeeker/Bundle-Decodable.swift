@@ -1,15 +1,16 @@
+
 //
-//  Bundle-Decodable.swift
+//  Bundle-decodable.swift
 //  100swiftstudentchallenge
 //
-//  Created by Gleenryan on 29/08/26.
+//  Created by Gleenryan on 14/09/26.
 //
 
 import Foundation
 
+//crash the app if cant locate file
 extension Bundle{
-    //kita bisa biking generic(works fo all data types) using <T>
-    func decode<T: Decodable>(_ file:String) -> T {
+    func decode<T: Decodable>(_ file: String) -> T {
         guard let url = self.url(forResource: file, withExtension: nil) else{
             fatalError("cant locate \(file)")
         }
@@ -19,13 +20,10 @@ extension Bundle{
         }
         
         let decoder = JSONDecoder()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "y-MM-dd"
-        decoder.dateDecodingStrategy = .formatted(formatter)
+        
         do{
             return try decoder.decode(T.self, from: data)
-            //kalo udah kaya gini, harus catch semua jenis error yang ada
-        } catch DecodingError.keyNotFound(let key, let context) {
+        }catch DecodingError.keyNotFound(let key, let context) {
             fatalError("Failed to decode \(file) from bundle due to missing key '\(key.stringValue)' – \(context.debugDescription)")
         } catch DecodingError.typeMismatch(_, let context) {
             fatalError("Failed to decode \(file) from bundle due to type mismatch – \(context.debugDescription)")
@@ -38,7 +36,3 @@ extension Bundle{
         }
     }
 }
-
-
-
-
